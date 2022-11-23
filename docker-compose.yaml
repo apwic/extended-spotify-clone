@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  dev:
+    container_name: sepotipayi-premium-app
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    ports:
+      - '3000:3000'
