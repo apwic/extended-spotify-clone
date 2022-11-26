@@ -19,7 +19,7 @@
   --bold: 600;
   --extra_bold: 700;
 
-  color-scheme: light dark;
+  /* color-scheme: light dark; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
