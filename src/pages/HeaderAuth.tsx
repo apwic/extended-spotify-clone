@@ -10,8 +10,6 @@ const HeaderAuth = () => {
             <Row style={{ borderBottom: '2px solid lightgray' }}>
                 <Col>
                     <img src={sepotipayiLogo} alt="logo-sepotipayi" style={{ height: '9vw', paddingBottom: '1vw' }} />
-                </Col>
-                <Col>
                     <div style={{ fontWeight: 'var(--extra_bold)', fontSize: 'clamp(0.3rem, 5vw, 2.5rem)', paddingBottom: '1vw'}}>Sepotipayi Premium</div>
                 </Col>
             </Row>

@@ -5,7 +5,7 @@ import HeaderAuth from './HeaderAuth'
 
 const Register = () => {
     return (
-        <div>
+        <>
             <Row>
                 <HeaderAuth />
                 <Form>
@@ -17,13 +17,13 @@ const Register = () => {
                     <Form.Control className='inputstyle' type='password' placeholder='Password' />
                     <Form.Label className='formstyle'>Confirm your Password</Form.Label>
                     <Form.Control className='inputstyle' type='password' placeholder='Password' />
-                    <Button className='buttonstyle'>REGISTER</Button>
+                    <Button className='buttonstyle' href='/singer'>REGISTER</Button>
                 </Form>
                 <div className='formstyle' style={{ marginTop: '.5vh' }}>
                     Already have an account? <Link to='/'>Log in for Sepotipayi Premium</Link>
                 </div>
             </Row>
-        </div>
+        </>
     )
 }
 

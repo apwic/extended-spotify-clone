@@ -20,30 +20,30 @@ Form {
 }
 
 .inputstyle {
-    border: 2px solid lightgray;
-    border-radius: 7.5px;
-    height: 3vh;
-    width: 30%;
-    padding: 1.5%;
-    font-size: clamp(0.7rem, 1.7vh, 1.5rem);
-    margin-bottom: 1.5%;
-    font-weight: 500;
+    border: 2px solid lightgray !important;
+    border-radius: 7.5px !important;
+    height: 3vh !important;
+    width: 30% !important;
+    padding: 1.5% !important;
+    font-size: clamp(0.7rem, 1.7vh, 1.5rem) !important;
+    margin-bottom: 1.5% !important;
+    font-weight: 500 !important;
 }
 
 .buttonstyle {
-    border: var(--light_green) 1px solid;
-    border-radius: 25px;
+    border: var(--light_green) 1px solid !important;
+    border-radius: 25px !important;
     display: inline-block;
-    padding: 1% 3%;
-    font-size: clamp(0.5rem, 2vw, 1rem);
-    font-weight: bold;
-    background-color: var(--light_green);
-    margin-bottom: 3%;
-    /* margin-top: 1%; */
+    padding: 1% 3% !important;
+    font-size: clamp(0.5rem, 2vw, 1rem) !important;
+    font-weight: bold !important;
+    background-color: var(--light_green) !important;
+    margin-bottom: 3% !important;
+    color: black !important;
 }
 
 a {
-    text-decoration: none;
-    color: var(--light_green);
-    font-weight: 600;
+    text-decoration: none !important;
+    color: var(--light_green) !important;
+    font-weight: 600 !important;
 }
