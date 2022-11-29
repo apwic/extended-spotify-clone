@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
+import { UserContextProvider } from '../context/UserContext'
 import '../styles/App.css'
 import AdminPage from './AdminPage'
 import Login from './Login'
@@ -8,14 +9,14 @@ import SingerPage from './SingerPage'
 function App() {
 
   return (
-    <div className="App">
+    <UserContextProvider>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/singer" element={<SingerPage maxData={2} />} />"
       </Routes>
-    </div>
+    </UserContextProvider>
   )
 }
 

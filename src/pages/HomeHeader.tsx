@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Button, Container, OverlayTrigger, Popover } from 'react-bootstrap'
 import sepotipayiLogo from '../assets/logo-good-quality.png'
 import '../styles/homeheader.css'
 import AuthService from '../services/auth-service'
 import { useNavigate } from 'react-router'
+import { UserContext } from '../context/UserContext'
 
 const HomeHeader = () => {
     const navigate = useNavigate();
+    const userContext = useContext(UserContext);
 
     const handleLogout = () => {
+        userContext.setUsername('');
         AuthService.signOut()
             .then((response: any) => {
                 console.log(response);
@@ -27,6 +30,7 @@ const HomeHeader = () => {
         </Popover>
     )
 
+
     return (
         <Container fluid>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid lightgray' }}>
@@ -38,7 +42,7 @@ const HomeHeader = () => {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBottom: '1vw' }}>
                     <OverlayTrigger trigger="click" placement="bottom" overlay={logoutButton}>
-                        <Button className='profilestyle'>Hello, <strong>Cassette Tape</strong></Button>
+                        <Button className='profilestyle'>Hello, <strong>{userContext.username}</strong></Button>
                     </OverlayTrigger>
                 </div>
             </div>

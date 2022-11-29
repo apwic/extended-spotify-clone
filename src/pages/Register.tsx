@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Form, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import HeaderAuth from './HeaderAuth'
 import IUser from "../types/user-type"
 import AuthService from '../services/auth-service'
+import { UserContext } from '../context/UserContext'
 
 const Register = () => {
     const [username, setUsername] = useState<IUser["username"]>('');
@@ -13,6 +14,7 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState<IUser["password"]>('');
     const isAdmin = false;
     const navigate = useNavigate();
+    const userContext = useContext(UserContext);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -23,6 +25,7 @@ const Register = () => {
             password,
             isAdmin
         }
+        userContext.setUsername(username);
         AuthService.signUp(data)
             .then((response: any) => {
                 console.log(response);
