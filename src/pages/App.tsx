@@ -13,7 +13,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/singer" element={<SingerPage />} />"
+        <Route path="/singer" element={<SingerPage maxData={2} />} />"
       </Routes>
     </div>
   )

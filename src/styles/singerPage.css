@@ -1,0 +1,48 @@
+.page-title {
+    font-weight: 700;
+    padding: 3% 0 0 3%;
+    text-align: left;
+    font-size: clamp(0.8rem, 3vw, 1.8rem);
+}
+.singer-songlist {
+    width: 100%;
+    margin-top: 5%;
+    font-weight: 500;
+}
+.song-detail {
+    color: black;
+    display: flex;
+    justify-content: center;
+    vertical-align: center;
+    margin-bottom: 4%;
+}
+.song-number {
+    width: 7%;
+}
+.song-title {
+    width: 70%;
+    text-align: left;
+    padding-left: 2vw;
+}
+.song-icon {
+    width: 5%;
+    height: 2vh;
+    object-fit: contain;
+    cursor: pointer;
+}
+.singer-pagination {
+    width: 100%;
+    margin-top: 5%;
+    display: flex;
+    font-weight: 500;
+    justify-content: center;
+}
+.singer-pagination > li {
+    list-style: none;
+    width: 6%;
+    color: black;
+}
+.singer-pagination a {
+    color: black;
+    text-decoration: none;
+}
