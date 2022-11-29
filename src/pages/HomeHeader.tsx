@@ -2,12 +2,27 @@ import React from 'react'
 import { Button, Container, OverlayTrigger, Popover } from 'react-bootstrap'
 import sepotipayiLogo from '../assets/logo-good-quality.png'
 import '../styles/homeheader.css'
+import AuthService from '../services/auth-service'
+import { useNavigate } from 'react-router'
 
 const HomeHeader = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        AuthService.signOut()
+            .then((response: any) => {
+                console.log(response);
+                navigate('/');
+            })
+            .catch((e: Error) => {
+                console.log(e);
+            });
+    }
+
     const logoutButton = (
         <Popover id="popover-basic">
             <Popover.Body>
-                <Button className='logoutbuttonstyle' href='/'>Logout ➡</Button>
+                <Button className='logoutbuttonstyle' onClick={handleLogout}>Logout ➡</Button>
             </Popover.Body>
         </Popover>
     )
