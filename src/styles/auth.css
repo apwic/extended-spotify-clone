@@ -42,7 +42,7 @@ Form {
     color: black !important;
 }
 
-a {
+.formstyle > a {
     text-decoration: none !important;
     color: var(--light_green) !important;
     font-weight: 600 !important;
