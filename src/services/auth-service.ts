@@ -3,7 +3,15 @@ import IUser from "../types/user-type";
 
 class AuthService {
   signIn(data: IUser) {
-    return http.post<any>("/auth/signin", data);
+    return http.post<any>("/auth/signin", data)
+      .then((response) => {
+          if (response.data.username) {
+            console.log("test");
+            localStorage.setItem("user", JSON.stringify(response.data));
+          }
+      
+          return response.data;
+      });
   }
 
   signUp(data: IUser) {
@@ -11,7 +19,15 @@ class AuthService {
   }
 
   signOut(){
-    return http.post<any>("/auth/signout");
+    return http.post<any>("/auth/signout")
+      .then((response) => {
+        localStorage.removeItem("user");
+        return response.data;
+      });
+  }
+
+  getCurrentUser(){
+    return JSON.parse(localStorage.getItem("user") || '{}');
   }
 };
 

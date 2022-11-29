@@ -11,7 +11,6 @@ import AuthService from "../services/auth-service"
 const Login = () => {
   const [username, setUsername] = useState<IUser["username"]>('');
   const [password, setPassword] = useState<IUser["password"]>('');
-  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,9 +21,8 @@ const Login = () => {
     }
     AuthService.signIn(data)
       .then((response: any) => {
-        console.log(response);
-        setIsAdmin(response.data.isAdmin);
-        isAdmin ? navigate('/admin') : navigate('/singer');
+        console.log(response.isAdmin);
+        response.isAdmin ? navigate('/admin') : navigate('/singer');
       })
       .catch((e: Error) => {
         console.log(e);
