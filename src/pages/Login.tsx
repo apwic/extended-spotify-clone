@@ -25,7 +25,7 @@ const Login = () => {
     AuthService.signIn(data)
       .then((response: any) => {
         console.log(response);
-        response.data.isAdmin ? navigate('/admin') : navigate('/singer');
+        response.isAdmin ? navigate('/admin') : navigate('/singer');
       })
       .catch((e: Error) => {
         console.log(e);

@@ -11,7 +11,6 @@ class UserService {
   }
 
   adminAccess() {
-    console.log(http);
     return http.get<any>("/test/admin");
   }
 }
