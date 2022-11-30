@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin" element={<AdminPage maxData={1}/>} />
         <Route path="/singer" element={<SingerPage maxData={3} />} />"
       </Routes>
     </UserContextProvider>

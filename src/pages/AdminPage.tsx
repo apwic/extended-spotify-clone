@@ -1,14 +1,26 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Table, Button } from 'react-bootstrap'
-import HomeHeader from './HomeHeader'
-import '../styles/adminpage.css'
-import UserService from "../services/user-service"
-import SubsService from '../services/subs-service'
-import { ISubs } from '../types/subs-type'
+import React, { useState, useEffect, useContext } from 'react';
+import { Table, Button } from 'react-bootstrap';
+import HomeHeader from './HomeHeader';
+import ReactPaginate from "react-paginate";
+import '../styles/adminpage.css';
+import UserService from "../services/user-service";
+import SubsService from '../services/subs-service';
+import { ISubs } from '../types/subs-type';
 
+interface SubsProps {
+  maxData: number
+}
 
-const AdminPage = () => {
+const AdminPage = ({maxData}: SubsProps) => {
+    const [offset, setOffset] = useState(0);
     const [content, setContent] = useState(Array<ISubs>);
+    const endOffset = offset + maxData;
+    const currentData = content.slice(offset, endOffset);
+    const pageCount = Math.ceil(content.length/maxData);
+
+    const handlePageChange = (e: any) => {
+      setOffset((e.selected * maxData) % content.length);
+    }
     
     const handleButton = (subs: ISubs, status: string) => {
       const data: ISubs = {creatorId: subs.creatorId, subscriberId: subs.subscriberId, status: status}
@@ -48,12 +60,8 @@ const AdminPage = () => {
     useEffect(() => {
     }, [content])
 
-    return (
-      <>
-        <HomeHeader />
-        <div className="title">
-            User's Subscription Requests
-        </div>
+    const displayData = (subsData: Array<ISubs>) => {
+      return (
         <Table striped hover variant='dark'>
           <thead>
                 <tr>
@@ -64,7 +72,7 @@ const AdminPage = () => {
                 </tr>
             </thead>
             <tbody>
-                {content.map((data) => {
+                {subsData.map((data) => {
                     return (
                         <tr>
                             <td className="infosyle">{data.subscriberName}</td>
@@ -79,6 +87,25 @@ const AdminPage = () => {
                 })}
             </tbody>
         </Table>
+      )
+    }
+
+    return (
+      <>
+        <HomeHeader />
+        <div className="title">
+            User's Subscription Requests
+        </div>
+        {displayData(currentData)}
+        <ReactPaginate 
+          breakLabel="..."
+          nextLabel=" >"
+          pageRangeDisplayed={5}
+          previousLabel="< "
+          onPageChange={(e) => handlePageChange(e)}
+          pageCount={pageCount}
+          className="subs-pagination"
+        />
       </>
     )
 }

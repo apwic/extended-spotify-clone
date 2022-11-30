@@ -48,3 +48,20 @@
     height: 5vh !important;
     width: 10vw !important;
 }
+
+.subs-pagination {
+  width: 100%;
+  margin-top: 5%;
+  display: flex;
+  font-weight: 500;
+  justify-content: center;
+}
+.subs-pagination > li {
+  list-style: none;
+  width: 6%;
+  color: black;
+}
+.subs-pagination a {
+  color: black;
+  text-decoration: none;
+}

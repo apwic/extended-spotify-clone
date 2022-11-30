@@ -8,39 +8,6 @@ import SongService from "../services/song-service";
 import { ISong } from "../types/song-type";
 import UserService from "../services/user-service";
 
-const dataDummy = [
-  {
-    id: 1,
-    judul: "Hahoahoa",
-    penyanyi_id: 2,
-    audio_path: "dodododo"
-  },
-  {
-    id: 2,
-    judul: "Hahoahoa",
-    penyanyi_id: 2,
-    audio_path: "dodododo"
-  },
-  {
-    id: 3,
-    judul: "Hahoahoa",
-    penyanyi_id: 2,
-    audio_path: "dodododo"
-  },
-  {
-    id: 4,
-    judul: "Hahoahoa",
-    penyanyi_id: 2,
-    audio_path: "dodododo"
-  },
-  {
-    id: 5,
-    judul: "Hahoahoa",
-    penyanyi_id: 2,
-    audio_path: "dodododo"
-  },
-];
-
 interface SingerProps {
   maxData: number
 }
