@@ -7,5 +7,6 @@ export interface ISubs {
 }
 
 export interface ISubsList {
-  subscription: Array<ISubs>;
+  subscription: Array<ISubs>
+  
 }

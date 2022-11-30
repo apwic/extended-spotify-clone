@@ -25,15 +25,17 @@ const AdminPage = () => {
     const updatePage = () => {
       UserService.adminAccess().then(
         (response) => {
-          SubsService.getAll().then((response) => {
+          SubsService.getAll()
+          .then((response) => {
             const data = response.data.subscription;
             setContent(data);
+          })
+          .catch((e: Error) => {
+            console.log(e);
           });
         },
         (error) => {
-          const _content = error.response.data.message
-          console.log(_content);
-
+          console.log(error.response.data.message);
           setContent([]);
         }
       );
