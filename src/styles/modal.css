@@ -31,3 +31,8 @@
     font-size: clamp(0.8rem, 2vw, 1.6rem);
     margin-top: 5%;
 }
+.react-responsive-modal-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -5,18 +5,17 @@ import { ModalContext } from "../context/ModalContext";
 import "../styles/modal.css";
 import "react-responsive-modal/styles.css";
 
-const ErrorModal = () => {
+const PopupModal = () => {
     const modalContext = useContext(ModalContext);
 
     useEffect(() => {
-        console.log(modalContext.type);
+        console.log(modalContext.type + "hahaah");
     }), [modalContext.type]
 
     return (
-        <Modal 
-            open={modalContext.open && modalContext.type === "error"} 
-            onClose={() => modalContext.setOpen(false)} 
-            center
+        <Modal
+            open={modalContext.open && modalContext.type === "popup"}
+            onClose={() => modalContext.setOpen(false)}
             classNames={{
                 modalContainer: "modal-container",
                 closeIcon: "modal-close-icon",
@@ -25,18 +24,12 @@ const ErrorModal = () => {
             focusTrapped={false}
         >
             <div className="modal-inner-card">
-                <div className="modal-text-title">
-                    OOPS!
-                </div>
-                <div className="modal-text-subtitle">
-                    we encountered an error...
-                </div>
                 <div className="modal-text-content">
                     {modalContext.msg} 
                 </div>
             </div>
         </Modal>
-    );
+    )
 }
 
-export default ErrorModal;
+export default PopupModal;

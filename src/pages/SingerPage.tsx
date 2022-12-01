@@ -10,8 +10,8 @@ import UserService from "../services/user-service";
 import { Button, Container, Form, Row } from "react-bootstrap";
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
-import ErrorModal from "../components/ErrorModal";
 import { ModalContext } from "../context/ModalContext";
+import { UserContext } from "../context/UserContext";
 interface SingerProps {
   maxData: number
 }
@@ -29,6 +29,7 @@ const SingerPage = ({maxData}: SingerProps) => {
   const currentData = content.slice(offset, endOffset);
   const pageCount = Math.ceil(content.length/maxData);
   const modalContext = useContext(ModalContext);
+  const userContext = useContext(UserContext);
   
   const getFilesChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -60,6 +61,7 @@ const SingerPage = ({maxData}: SingerProps) => {
   }
 
   const handleCreate = () => {
+    setOpen(false);
     if (fileSelected) {
       const formData = new FormData();
       formData.append("judul", music);
@@ -67,6 +69,9 @@ const SingerPage = ({maxData}: SingerProps) => {
       SongService.createSong(formData)
         .then((response) => {
           console.log(response);
+          modalContext.setMsg("Song added!");
+          modalContext.setType("popup");
+          modalContext.setOpen(true);
           updatePage();
         })
         .catch((e: any) => {
@@ -126,8 +131,10 @@ const SingerPage = ({maxData}: SingerProps) => {
           modalContext.setOpen(true);
         });
       }, 
-      (error) => {
-        console.log(error.response.data.message);
+      (e: any) => {
+        modalContext.setMsg(e.response.data.message);
+        modalContext.setType("error");
+        modalContext.setOpen(true);
         setContent([]);
       }
     );
@@ -181,33 +188,35 @@ const SingerPage = ({maxData}: SingerProps) => {
   return (
     <>
       <HomeHeader />
-      <div className="page-title">
-        <div>Your Music</div>
-        <Button className="addbutton" onClick={() => setOpen(true)}>+</Button>
-        <Modal open={open} onClose={() => setOpen(false)} center>
-          <Container>
-            <Row>
-              <Form>
-                <Form.Label className='placeholderstyle'>Enter your Music Title</Form.Label>
-                <Form.Control className='inputsongstyle' type="text" placeholder="Music Title" onChange={(e) => setMusic(e.target.value)} />
-                <Form.Label className='placeholderstyle'>Insert your Music File</Form.Label>
-                <Form.Control className='inputsongstyle' type="file" accept="audio/*" onChange={getFilesChanges}/>
-                <Button className="submitaddsong" onClick={handleCreate}>ADD SONG</Button>
-              </Form>
-            </Row>
-          </Container>
-        </Modal>
+      <div className="content-section">
+        <div className="page-title">
+          <div>Your Music</div>
+          <Button className="addbutton" onClick={() => setOpen(true)}>+</Button>
+          <Modal open={open} onClose={() => setOpen(false)} center>
+            <Container>
+              <Row>
+                <Form>
+                  <Form.Label className='placeholderstyle'>Enter your Music Title</Form.Label>
+                  <Form.Control className='inputsongstyle' type="text" placeholder="Music Title" onChange={(e) => setMusic(e.target.value)} />
+                  <Form.Label className='placeholderstyle'>Insert your Music File</Form.Label>
+                  <Form.Control className='inputsongstyle' type="file" accept="audio/*" onChange={getFilesChanges}/>
+                  <Button className="submitaddsong" onClick={handleCreate}>ADD SONG</Button>
+                </Form>
+              </Row>
+            </Container>
+          </Modal>
+        </div>
+        {displayData(currentData)}
+        <ReactPaginate 
+          breakLabel="..."
+          nextLabel=" >"
+          pageRangeDisplayed={5}
+          previousLabel="< "
+          onPageChange={(e) => handlePageChange(e)}
+          pageCount={pageCount}
+          className="singer-pagination"
+        />
       </div>
-      {displayData(currentData)}
-      <ReactPaginate 
-        breakLabel="..."
-        nextLabel=" >"
-        pageRangeDisplayed={5}
-        previousLabel="< "
-        onPageChange={(e) => handlePageChange(e)}
-        pageCount={pageCount}
-        className="singer-pagination"
-      />
     </>
   );
 };

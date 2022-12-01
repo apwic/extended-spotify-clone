@@ -39,6 +39,8 @@
     display: flex;
     font-weight: 500;
     justify-content: center;
+    position: absolute;
+    bottom: 5%;
 }
 .singer-pagination > li {
     list-style: none;

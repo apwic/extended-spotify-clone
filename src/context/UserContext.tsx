@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 export interface UserContextTypes {
     username: string;
-    setUsername: React.Dispatch<React.SetStateAction<string>>;
+    setUsername: (user: string) => void;
 }
 
 export const UserContext = React.createContext<UserContextTypes>(
@@ -14,7 +14,10 @@ interface Props {
 }
 
 export const UserContextProvider: React.FC<Props> = (props) => {
-    const [username, setUsername] = useState<string>('');
+    const username = localStorage.getItem("username") || "";
+    const setUsername = (user: string) => {
+        localStorage.setItem("username", user);
+    }
 
     return (
         <UserContext.Provider value={{ username, setUsername }}>

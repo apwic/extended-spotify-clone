@@ -28,10 +28,24 @@
   -webkit-text-size-adjust: 100%;
 }
 
-
-body {
-  margin: 0;
-  height: 100vh;
-  overflow: hidden;
+#root {
+  height: 100%;
 }
 
+html, 
+body {
+    height: 100%;
+}
+
+.page-container {
+  height: 100%;
+}
+
+.navbar-section {
+  min-height: 9%;
+}
+
+.content-section {
+  min-height: 91%;
+  position: relative;
+}

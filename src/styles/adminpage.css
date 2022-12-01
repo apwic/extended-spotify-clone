@@ -55,6 +55,8 @@
   display: flex;
   font-weight: 500;
   justify-content: center;
+  position: absolute;
+  bottom: 5%;
 }
 .subs-pagination > li {
   list-style: none;

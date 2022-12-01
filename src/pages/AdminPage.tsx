@@ -7,6 +7,7 @@ import UserService from "../services/user-service";
 import SubsService from '../services/subs-service';
 import { ISubs } from '../types/subs-type';
 import { ModalContext } from '../context/ModalContext';
+import { UserContext } from '../context/UserContext';
 
 interface SubsProps {
   maxData: number
@@ -19,6 +20,7 @@ const AdminPage = ({maxData}: SubsProps) => {
     const currentData = content.slice(offset, endOffset);
     const pageCount = Math.ceil(content.length/maxData);
     const modalContext = useContext(ModalContext);
+    const userContext = useContext(UserContext);
 
     const handlePageChange = (e: any) => {
       setOffset((e.selected * maxData) % content.length);
@@ -47,13 +49,15 @@ const AdminPage = ({maxData}: SubsProps) => {
             setContent(data);
           })
           .catch((e: any) => {
-                modalContext.setMsg(e.response.data.message);
-                modalContext.setType("error");
-                modalContext.setOpen(true);
-            });
+            modalContext.setMsg(e.response.data.message);
+            modalContext.setType("error");
+            modalContext.setOpen(true);
+          });
         },
-        (error) => {
-          console.log(error.response.data.message);
+        (e: any) => {
+          modalContext.setMsg(e.response.data.message);
+          modalContext.setType("error");
+          modalContext.setOpen(true);
           setContent([]);
         }
       );
@@ -85,7 +89,7 @@ const AdminPage = ({maxData}: SubsProps) => {
                             <td className="infosyle">{data.creatorName}</td>
                             <td className="infosyle">{data.status}</td>
                             <td className="actionstyle">
-                                <Button className='acceptstyle' onClick={() => handleButton(data, "APPROVE")}>Approve</Button>
+                                <Button className='acceptstyle' onClick={() => handleButton(data, "ACCEPTED")}>Accept</Button>
                                 <Button className='rejectstyle' onClick={() => handleButton(data, "REJECTED")}>Reject</Button>
                             </td>
                         </tr>
@@ -99,19 +103,21 @@ const AdminPage = ({maxData}: SubsProps) => {
     return (
       <>
         <HomeHeader />
-        <div className="title">
-            User's Subscription Requests
+        <div className='content-section'>
+          <div className="title">
+              User's Subscription Requests
+          </div>
+          {displayData(currentData)}
+          <ReactPaginate 
+            breakLabel="..."
+            nextLabel=" >"
+            pageRangeDisplayed={5}
+            previousLabel="< "
+            onPageChange={(e) => handlePageChange(e)}
+            pageCount={pageCount}
+            className="subs-pagination"
+          />
         </div>
-        {displayData(currentData)}
-        <ReactPaginate 
-          breakLabel="..."
-          nextLabel=" >"
-          pageRangeDisplayed={5}
-          previousLabel="< "
-          onPageChange={(e) => handlePageChange(e)}
-          pageCount={pageCount}
-          className="subs-pagination"
-        />
       </>
     )
 }
