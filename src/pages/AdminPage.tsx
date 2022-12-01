@@ -6,6 +6,7 @@ import '../styles/adminpage.css';
 import UserService from "../services/user-service";
 import SubsService from '../services/subs-service';
 import { ISubs } from '../types/subs-type';
+import { ModalContext } from '../context/ModalContext';
 
 interface SubsProps {
   maxData: number
@@ -17,6 +18,7 @@ const AdminPage = ({maxData}: SubsProps) => {
     const endOffset = offset + maxData;
     const currentData = content.slice(offset, endOffset);
     const pageCount = Math.ceil(content.length/maxData);
+    const modalContext = useContext(ModalContext);
 
     const handlePageChange = (e: any) => {
       setOffset((e.selected * maxData) % content.length);
@@ -29,8 +31,10 @@ const AdminPage = ({maxData}: SubsProps) => {
           console.log(response);
           updatePage();
         })
-        .catch((e: Error) => {
-          console.log(e);
+        .catch((e: any) => {
+          modalContext.setMsg(e.response.data.message);
+          modalContext.setType("error");
+          modalContext.setOpen(true);
         });
     }
 
@@ -42,9 +46,11 @@ const AdminPage = ({maxData}: SubsProps) => {
             const data = response.data.subscription;
             setContent(data);
           })
-          .catch((e: Error) => {
-            console.log(e);
-          });
+          .catch((e: any) => {
+                modalContext.setMsg(e.response.data.message);
+                modalContext.setType("error");
+                modalContext.setOpen(true);
+            });
         },
         (error) => {
           console.log(error.response.data.message);

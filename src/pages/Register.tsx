@@ -5,6 +5,7 @@ import HeaderAuth from './HeaderAuth'
 import IUser from "../types/user-type"
 import AuthService from '../services/auth-service'
 import { UserContext } from '../context/UserContext'
+import { ModalContext } from '../context/ModalContext'
 
 const Register = () => {
     const [username, setUsername] = useState<IUser["username"]>('');
@@ -15,6 +16,7 @@ const Register = () => {
     const isAdmin = false;
     const navigate = useNavigate();
     const userContext = useContext(UserContext);
+    const modalContext = useContext(ModalContext);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -31,8 +33,10 @@ const Register = () => {
                 console.log(response);
                 navigate('/singer');
             })
-            .catch((e: Error) => {
-                console.log(e);
+            .catch((e: any) => {
+                modalContext.setMsg(e.response.data.message);
+                modalContext.setType("error");
+                modalContext.setOpen(true);
             });
     }
 

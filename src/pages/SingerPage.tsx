@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import HomeHeader from "./HomeHeader";
 import ReactPaginate from "react-paginate";
 import "../styles/singerPage.css";
@@ -10,6 +10,8 @@ import UserService from "../services/user-service";
 import { Button, Container, Form, Row } from "react-bootstrap";
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
+import ErrorModal from "../components/ErrorModal";
+import { ModalContext } from "../context/ModalContext";
 interface SingerProps {
   maxData: number
 }
@@ -26,6 +28,7 @@ const SingerPage = ({maxData}: SingerProps) => {
   const endOffset = offset + maxData;
   const currentData = content.slice(offset, endOffset);
   const pageCount = Math.ceil(content.length/maxData);
+  const modalContext = useContext(ModalContext);
   
   const getFilesChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -49,9 +52,11 @@ const SingerPage = ({maxData}: SingerProps) => {
       console.log(response);
       updatePage();
     })
-    .catch((e: Error) => {
-      console.log(e);
-    });
+    .catch((e: any) => {
+      modalContext.setMsg(e.response.data.message);
+      modalContext.setType("error");
+      modalContext.setOpen(true);
+  });
   }
 
   const handleCreate = () => {
@@ -64,8 +69,10 @@ const SingerPage = ({maxData}: SingerProps) => {
           console.log(response);
           updatePage();
         })
-        .catch((e: Error) => {
-          console.log(e);
+        .catch((e: any) => {
+            modalContext.setMsg(e.response.data.message);
+            modalContext.setType("error");
+            modalContext.setOpen(true);
         });
     }
     setFileSelected(undefined);
@@ -82,8 +89,10 @@ const SingerPage = ({maxData}: SingerProps) => {
           console.log(response);
           updatePage();
         })
-        .catch((e: Error) => {
-          console.log(e);
+        .catch((e: any) => {
+          modalContext.setMsg(e.response.data.message);
+          modalContext.setType("error");
+          modalContext.setOpen(true);
         });
     } else {
       const formData = new FormData();
@@ -94,9 +103,11 @@ const SingerPage = ({maxData}: SingerProps) => {
           console.log(response);
           updatePage();
         })
-        .catch((e: Error) => {
-          console.log(e);
-        })
+        .catch((e: any) => {
+          modalContext.setMsg(e.response.data.message);
+          modalContext.setType("error");
+          modalContext.setOpen(true);
+        });
     }
     setEditFile(undefined);
   }
@@ -109,8 +120,10 @@ const SingerPage = ({maxData}: SingerProps) => {
           const data = response.data;
           setContent(data.songs);
         })
-        .catch((e: Error) => {
-          console.log(e);
+        .catch((e: any) => {
+          modalContext.setMsg(e.response.data.message);
+          modalContext.setType("error");
+          modalContext.setOpen(true);
         });
       }, 
       (error) => {

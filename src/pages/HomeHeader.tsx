@@ -5,10 +5,12 @@ import '../styles/homeheader.css'
 import AuthService from '../services/auth-service'
 import { useNavigate } from 'react-router'
 import { UserContext } from '../context/UserContext'
+import { ModalContext } from '../context/ModalContext'
 
 const HomeHeader = () => {
     const navigate = useNavigate();
     const userContext = useContext(UserContext);
+    const modalContext = useContext(ModalContext);
 
     const handleLogout = () => {
         userContext.setUsername('');
@@ -17,8 +19,10 @@ const HomeHeader = () => {
                 console.log(response);
                 navigate('/');
             })
-            .catch((e: Error) => {
-                console.log(e);
+            .catch((e: any) => {
+                modalContext.setMsg(e.response.data.message);
+                modalContext.setType("error");
+                modalContext.setOpen(true);
             });
     }
 
