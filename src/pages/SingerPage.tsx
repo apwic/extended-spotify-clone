@@ -157,7 +157,7 @@ const SingerPage = ({maxData}: SingerProps) => {
                         <Form.Control className='inputsongstyle' type="text" placeholder={id.judul} onChange={(e) => setMusic(e.target.value)} />
                         <Form.Label className='placeholderstyle'>Edit your Music File</Form.Label>
                         <Form.Label className='currentstyle'>Your Current Music File : {(id.audio_path).substring(30)}</Form.Label>
-                        <Form.Control className='inputsongstyle' type="file" onChange={getFilesEdit} />
+                        <Form.Control className='inputsongstyle' type="file" accept="audio/*" onChange={getFilesEdit} />
                         <Button className="submitaddsong" onClick={() => handleUpdate(id.song_id)}>UPDATE</Button>
                       </Form>
                     </Row>
@@ -191,7 +191,7 @@ const SingerPage = ({maxData}: SingerProps) => {
                 <Form.Label className='placeholderstyle'>Enter your Music Title</Form.Label>
                 <Form.Control className='inputsongstyle' type="text" placeholder="Music Title" onChange={(e) => setMusic(e.target.value)} />
                 <Form.Label className='placeholderstyle'>Insert your Music File</Form.Label>
-                <Form.Control className='inputsongstyle' type="file" onChange={getFilesChanges}/>
+                <Form.Control className='inputsongstyle' type="file" accept="audio/*" onChange={getFilesChanges}/>
                 <Button className="submitaddsong" onClick={handleCreate}>ADD SONG</Button>
               </Form>
             </Row>

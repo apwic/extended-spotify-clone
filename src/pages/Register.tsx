@@ -64,8 +64,8 @@ const Register = () => {
                         modalContext.setOpen(true);
                     });
             },
-            (error: any) => {
-                modalContext.setMsg(error);
+            (e: any) => {
+                modalContext.setMsg(e.response.data.message);
                 modalContext.setType("error");
                 modalContext.setOpen(true);
             }
