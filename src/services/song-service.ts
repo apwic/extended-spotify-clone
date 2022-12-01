@@ -1,4 +1,5 @@
 import http from "../http-common";
+import http2 from "../http-common-2";
 import { ISong, ISongList } from "../types/song-type";
 
 class SongService {
@@ -20,6 +21,14 @@ class SongService {
 
   deleteSong(id: number){
     return http.delete<any>(`/songs?id=${id}`);
+  }
+
+  createSong(data: FormData){
+    return http2.post<any>("/songs", data);
+  }
+
+  updateSong(data: FormData){
+    return http2.patch<any>("/songs", data);
   }
 }
 

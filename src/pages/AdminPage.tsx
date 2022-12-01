@@ -72,9 +72,9 @@ const AdminPage = ({maxData}: SubsProps) => {
                 </tr>
             </thead>
             <tbody>
-                {subsData.map((data) => {
+                {subsData.map((data: ISubs, i: number) => {
                     return (
-                        <tr>
+                        <tr key={i}>
                             <td className="infosyle">{data.subscriberName}</td>
                             <td className="infosyle">{data.creatorName}</td>
                             <td className="infosyle">{data.status}</td>
