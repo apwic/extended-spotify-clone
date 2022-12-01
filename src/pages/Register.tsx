@@ -15,9 +15,28 @@ const Register = () => {
     const isAdmin = false;
     const navigate = useNavigate();
     const userContext = useContext(UserContext);
+    const regex = new RegExp(/^[a-zA-Z0-9_]*$/);
+
+    const checkUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setUsername(e.target.value);
+        if (!regex.test(e.target.value)) {
+            alert('Username must only contain alphanumeric characters and underscores.');
+        }
+    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }
+
+        if (!regex.test(username)) {
+            alert('Username must only contain alphanumeric characters and underscores.');
+            return;
+        }
         const data: IUser = {
             username,
             email,
@@ -28,12 +47,23 @@ const Register = () => {
         userContext.setUsername(username);
         AuthService.signUp(data)
             .then((response: any) => {
-                console.log(response);
-                navigate('/singer');
-            })
-            .catch((e: Error) => {
-                console.log(e);
-            });
+                const dataLogin: IUser = {
+                    username,
+                    password
+                }
+                AuthService.signIn(dataLogin)
+                    .then((response: any) => {
+                        console.log(response);
+                        navigate('/singer');
+                    })
+                    .catch((e: Error) => {
+                        console.log(e);
+                });
+            },
+            (error: any) => {
+                console.log(error);
+            }
+        );
     }
 
     return (
@@ -42,15 +72,15 @@ const Register = () => {
                 <HeaderAuth />
                 <Form onSubmit={handleSubmit}>
                     <Form.Label className='formstyle'>Enter your Name</Form.Label>
-                    <Form.Control className='inputstyle' type='text' placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />
+                    <Form.Control required className='inputstyle' type='text' placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />
                     <Form.Label className='formstyle'>Enter your Username</Form.Label>
-                    <Form.Control className='inputstyle' type='text' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <Form.Control required className='inputstyle' type='text' placeholder='Username' value={username} onChange={checkUsername} />
                     <Form.Label className='formstyle'>What's your Email?</Form.Label>
-                    <Form.Control className='inputstyle' type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <Form.Control required className='inputstyle' type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
                     <Form.Label className='formstyle'>Enter your Password</Form.Label>
-                    <Form.Control className='inputstyle' type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}  />
+                    <Form.Control required className='inputstyle' type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}  />
                     <Form.Label className='formstyle'>Confirm your Password</Form.Label>
-                    <Form.Control className='inputstyle' type='password' placeholder='Password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    <Form.Control required className='inputstyle' type='password' placeholder='Password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                     <Button className='buttonstyle' type='submit'>REGISTER</Button>
                 </Form>
                 <div className='formstyle' style={{ marginTop: '.5vh' }}>
