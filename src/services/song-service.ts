@@ -1,5 +1,5 @@
 import http from "../http-common";
-import http2 from "../http-common-2";
+import http2 from "../http-common-form";
 import { ISong, ISongList } from "../types/song-type";
 
 class SongService {

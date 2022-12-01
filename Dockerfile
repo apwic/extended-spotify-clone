@@ -14,4 +14,3 @@ ENTRYPOINT ["/entrypoint.sh"]
 CMD ["npm", "run", "dev", "--host"]
 
 EXPOSE 3000
-
