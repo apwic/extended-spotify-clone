@@ -15,7 +15,7 @@ Sepotipayi Premium App Service berperan sebagai Client dari aplikasi Sepotipayi 
 
 ## Cara Menjalankan Client
 
-> Perlu diperhatikan bahwa terdapat repository `sepotipayi-docker` untuk mempermudah menjalankan aplikasi secara sekaligus dan **disarankan** untuk menjalankan client melewati repository tersebut.
+> Perlu diperhatikan bahwa terdapat repository https://github.com/apwic/spotify-docker-script untuk mempermudah menjalankan aplikasi secara sekaligus dan **disarankan** untuk menjalankan client melewati repository tersebut.
 
 1. Pastikan docker desktop sudah dijalankan, disarankan untuk melakukan delete terlebih dahulu pada image MySQL yang sudah dimiliki sebelumnya
 2. Jalankan perintah `docker-compose up --build`
